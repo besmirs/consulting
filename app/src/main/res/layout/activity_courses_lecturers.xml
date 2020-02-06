@@ -8,120 +8,49 @@
     tools:context=".CoursesLecturers">
 
 
-
-
-
-    <LinearLayout
-        android:id="@+id/topLinearLayout"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="@drawable/gradientbackground"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        app:tabIndicator="@color/colorPrimary"
+        app:tabBackground="@drawable/tab_color_selector">
 
-        <TextView
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SEEU University"
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:textSize="21sp"/>
-
-    </LinearLayout>
-
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="340dp"
-        android:layout_height="90dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp">
-
-        <TextView
-            android:id="@+id/dash_studentFullName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="26sp"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:textStyle="bold"
+        <com.google.android.material.tabs.TabItem
+            android:icon="@drawable/ic_consultation"
+            android:text="Consultation"
             />
+        <com.google.android.material.tabs.TabItem
+            android:icon="@drawable/ic_history"
+            android:text="History" />
 
-        <TextView
-            android:id="@+id/dash_studentId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textSize="16sp"
-            android:textColor="@color/startblue"
-            android:layout_marginTop="40dp"
-            android:textStyle="bold"
-            />
-
-        <TextView
-            android:id="@+id/dash_studentFaculty"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="CST Faculty"
-            android:textSize="16sp"
-            android:textColor="@color/startblue"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="60dp"
-            android:textStyle="bold"
-            />
-
-    </androidx.cardview.widget.CardView>
-
+    </com.google.android.material.tabs.TabLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/cardView"
-        android:layout_marginBottom="58dp"
+        android:orientation="vertical"
         android:padding="10dp"
-        android:orientation="vertical">
+        android:layout_below="@+id/tabs">
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Available dates for consultation for"
-            android:textColor="@color/startblue"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            />
-
-
-
-        <TextView
-            android:id="@+id/con_title_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Consultation title"
-            android:layout_margin="5dp"/>
-
-
-        <EditText
-            android:id="@+id/con_title_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:maxLines="1"
-            android:inputType="text"
-            android:text=""/>
-
-
+            android:gravity="left"
+            android:text="Submit consultation for following course"
+            android:textColor="@color/darkText" />
 
 
         <TextView
             android:id="@+id/con_course_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Course"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp"
+            android:textColor="@color/darkText"
+            android:text="Course" />
 
 
         <EditText
@@ -130,71 +59,69 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:inputType="none"
+            android:clickable="false"
+            android:cursorVisible="false"
             android:enabled="false"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:cursorVisible="false"
-            android:clickable="false"/>
+            android:inputType="none" />
+
+        <TextView
+            android:id="@+id/con_title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textColor="@color/darkText"
+            android:text="Consultation title" />
+
+
+        <EditText
+            android:id="@+id/con_title_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:inputType="text"
+            android:maxLines="1"
+            android:text="" />
 
 
         <TextView
             android:id="@+id/con_description_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Brief description"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp"
+            android:textColor="@color/darkText"
+            android:text="Brief description" />
 
 
         <EditText
             android:id="@+id/con_description_input"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:lines="4"
-            android:scrollHorizontally="false"
             android:gravity="top|start"
-            android:inputType="text|textMultiLine"/>
+            android:inputType="text|textMultiLine"
+            android:layout_marginBottom="60dp"
+            android:scrollHorizontally="false" />
 
-
-
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="vertical"
-            android:gravity="bottom">
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="20dp"
-                android:text="Submit"
-                android:layout_gravity="bottom"
-                android:background="@drawable/gradientbackground" />
-
-        </LinearLayout>
 
     </LinearLayout>
 
 
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigation"
+    <Button
+        android:id="@+id/submit_consultation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:itemBackground="@color/startblue"
-        app:itemTextColor="@drawable/selector"
-        app:itemIconTint="@drawable/selector"
-        app:menu="@menu/menu_navigation"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="20dp"
+        android:text="Submit"
         android:layout_alignParentBottom="true"
-        >
-
-
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        android:layout_marginBottom="5dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/gradientbackground" />
 
 
 </RelativeLayout>

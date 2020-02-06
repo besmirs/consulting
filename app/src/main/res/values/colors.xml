@@ -7,4 +7,7 @@
     <color name="grayLight">#FAFAFA</color>
     <color name="startblue">#09C6DF</color>
     <color name="endblue">#0BCCE6</color>
+    <color name="tabSelected">#DDDDDD</color>
+    <color name="tabUnselected">#FFFFFF</color>
+    <color name="darkText">#000000</color>
 </resources>
