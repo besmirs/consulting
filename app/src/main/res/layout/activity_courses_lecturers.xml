@@ -66,6 +66,15 @@
             android:focusableInTouchMode="false"
             android:inputType="none" />
 
+        <EditText
+            android:id="@+id/con_course_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:inputType="number"
+            android:visibility="gone"/>
+
         <TextView
             android:id="@+id/con_title_text"
             android:layout_width="match_parent"
@@ -110,8 +119,18 @@
     </LinearLayout>
 
 
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_above="@+id/btn_submit"
+        android:visibility="gone"
+        />
+
+
     <Button
-        android:id="@+id/submit_consultation"
+        android:id="@+id/btn_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"

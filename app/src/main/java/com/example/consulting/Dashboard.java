@@ -50,6 +50,15 @@ public class Dashboard extends AppCompatActivity {
 
         session = new SessionManager(getApplicationContext());
 
+        // get user data from session
+        //HashMap<String, String> user = session.getUserDetails();
+
+        // name
+        //String name = user.get(SessionManager.KEY_NAME);
+
+        // email
+        //String email = user.get(SessionManager.KEY_EMAIL);
+
         myIntent = new Intent(this, CoursesLecturers.class);
 
 
@@ -75,7 +84,14 @@ public class Dashboard extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
+
                 String[] itemResponseJson =  lv.getItemAtPosition(position).toString().split(",");
+
+                String[] course = itemResponseJson[0].split("=");
+                String course_id = course[1];
+
+                String[] coursesName = itemResponseJson[4].split("=");
+                String course_name = coursesName[1];
 
                 String[] lecturers = itemResponseJson[1].split("=");
                 String lecturer = lecturers[1];
@@ -83,11 +99,15 @@ public class Dashboard extends AppCompatActivity {
                 String[] lecturers_ids = itemResponseJson[0].split("=");
                 String lecturer_id = lecturers_ids[1];
 
-                //Toast.makeText(Dashboard.this, lecturer, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Dashboard.this, lv.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
 
+                myIntent.putExtra("COURSE_ID", course_id);
+                myIntent.putExtra("COURSE_NAME", course_name);
                 myIntent.putExtra("LECTURER_ID", lecturer_id);
                 myIntent.putExtra("LECTURER_NAME", lecturer);
                 myIntent.putExtra("STUDENT_NAME", sFullName);
+
+
                 startActivity(myIntent);
 
             }
