@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +32,9 @@ public class CoursesLecturers extends AppCompatActivity {
     Button btn_submit;
     ProgressBar loading;
     SessionManager session;
+    TabLayout tabs;
+
+    Intent myIntent;
     private static String URL_POST_CONSULTING = "http://trepcacorporation.com/consulting/consulting.php";
 
     @Override
@@ -41,7 +45,7 @@ public class CoursesLecturers extends AppCompatActivity {
         session = new SessionManager(getApplicationContext());
         btn_submit = findViewById(R.id.btn_submit);
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         //String lecturer_id = intent.getStringExtra("LECTURER_ID");
         String lecturer_name = intent.getStringExtra("LECTURER_NAME");
         String course_id = intent.getStringExtra("COURSE_ID");
@@ -54,6 +58,7 @@ public class CoursesLecturers extends AppCompatActivity {
         con_description_input = findViewById(R.id.con_description_input);
         course_title = findViewById(R.id.con_course_input);
         con_course_id = findViewById(R.id.con_course_id);
+        tabs = findViewById(R.id.tabs);
 
 
         //Get the user data from SessionManager
@@ -82,6 +87,31 @@ public class CoursesLecturers extends AppCompatActivity {
                     con_title_input.setError("Title field is required!");
                     con_description_input.setError("Description field is required!");
                 }
+            }
+        });
+
+
+        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 1) {
+                    myIntent = new Intent(CoursesLecturers.this, History.class);
+                    myIntent.putExtra("EXTRA","1");
+                    startActivity(myIntent);
+
+                } else {
+                    Toast.makeText(CoursesLecturers.this, "Tab nr 1", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
             }
         });
 

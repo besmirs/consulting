@@ -8,6 +8,7 @@
     tools:context=".CoursesLecturers">
 
 
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
