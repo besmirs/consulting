@@ -13,8 +13,21 @@
         android:paddingTop="6dip"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="16sp"
-        android:text="name"
+        android:text="Titulli i postimit"
         android:textStyle="bold"
+        android:layout_alignParentLeft="true"
+        />
+
+    <TextView
+        android:id="@+id/c_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="2dip"
+        android:paddingTop="2dip"
+        android:textColor="@color/darkText"
+        android:textSize="12sp"
+        android:text="Data e postimit: 20.02.2020"
+        android:layout_below="@+id/name"
         android:layout_alignParentLeft="true"
         />
 
@@ -24,14 +37,45 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="2dip"
-        android:layout_marginTop="10dp"
-        android:text="email"
+        android:ellipsize="end"
+        android:text="Text description"
         android:inputType="text|textMultiLine"
         android:textSize="14sp"
-        android:lines="5"
-        android:textStyle="bold"
-        android:layout_below="@id/name"
-        android:textColor="@color/colorAccent" />
+        android:lines="2"
+        android:layout_below="@id/c_date"
+        android:textColor="@color/darkText" />
+
+    <LinearLayout
+        android:id="@+id/con_status"
+        android:layout_width="fill_parent"
+        android:layout_height="20dp"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_below="@id/mobile">
+
+        <TextView
+            android:id="@+id/titlename"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="left"
+            android:text="Status: Pending" />
+
+        <TextView
+            android:id="@+id/asdf"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="right"
+            android:text="Class: 816.02" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/con_status"
+        android:text="Date for consultaion: Not set"
+        />
 
 
 </RelativeLayout>

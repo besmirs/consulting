@@ -1,5 +1,6 @@
 package com.example.consulting;
 
+import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -18,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,16 +32,16 @@ import java.util.HashMap;
 public class History extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
-    private TextView dash_studentId, dash_studentFullName;
+    private TextView course_hidden_id, student_hidden_id, history_no_records;
     private String TAG = History.class.getSimpleName();
     private ProgressDialog pDialog;
     private ListView lv;
+    private LinearLayout history_listview;
+    //private TabLayout tabs;
 
     SessionManager session;
 
-    Intent myIntent;
 
-    // URL to get contacts JSON
     //private static
     ArrayList<HashMap<String, String>> contactList;
 
@@ -47,12 +50,33 @@ public class History extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
+        androidx.appcompat.app.ActionBar actionBar = getSupportActionBar();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        actionBar.setTitle("Course history");
+
         session = new SessionManager(getApplicationContext());
+
+
+        final Intent intent = getIntent();
+        String course_id = intent.getStringExtra("HISTORY_COURSE_ID");
+        String student_id = intent.getStringExtra("HISTORY_STUDENT_ID");
+
 
 
         contactList = new ArrayList<>();
 
         lv = findViewById(R.id.listView);
+        course_hidden_id = findViewById(R.id.course_unique_id);
+        student_hidden_id = findViewById(R.id.student_unique_id);
+        history_no_records = findViewById(R.id.history_no_records);
+        history_listview = findViewById(R.id.history_listview);
+
+
+        course_hidden_id.setText(course_id);
+        student_hidden_id.setText(student_id);
 
         new GetContacts().execute();
 
@@ -60,10 +84,32 @@ public class History extends AppCompatActivity {
 
     }
 
+    // Required to start MainActivity when ActionBar back icon pressed
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home: {
+                finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    // Required to start MainActivity when HW back KEY pressed
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
 
     private class GetContacts extends AsyncTask<Void, Void, Void> {
 
-        String url = "http://trepcacorporation.com/consulting/history.php";
+        String url = "http://trepcacorporation.com/consulting/history.php?course_id=" +
+                course_hidden_id.getText().toString().trim() + "&student_unique_id=" +
+                student_hidden_id.getText().toString().trim();
+
 
         @Override
         protected void onPreExecute() {
@@ -159,6 +205,12 @@ public class History extends AppCompatActivity {
                     R.layout.list_consultation,
                     new String[]{"con_title", "con_desc"},
                     new int[]{R.id.name, R.id.mobile});
+
+            if(adapter.getCount() == 0)
+            {
+                history_no_records.setVisibility(View.VISIBLE);
+                history_listview.setVisibility(View.GONE);
+            }
 
             lv.setAdapter(adapter);
 

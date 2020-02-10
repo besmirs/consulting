@@ -48,9 +48,10 @@ public class CoursesLecturers extends AppCompatActivity {
         final Intent intent = getIntent();
         //String lecturer_id = intent.getStringExtra("LECTURER_ID");
         String lecturer_name = intent.getStringExtra("LECTURER_NAME");
-        String course_id = intent.getStringExtra("COURSE_ID");
+        final String course_id = intent.getStringExtra("COURSE_ID");
         String course_name = intent.getStringExtra("COURSE_NAME");
         String student_name = intent.getStringExtra("STUDENT_NAME");
+        final String student_unique_id = intent.getStringExtra("STUDENT_ID");
 
         //Finding view with associated IDs
         loading = findViewById(R.id.loading);
@@ -65,6 +66,7 @@ public class CoursesLecturers extends AppCompatActivity {
         //HashMap<String, String> user = session.getUserDetails();
         //String studentId = user.get(SessionManager.KEY_STUDENT_ID);
 
+        tabs.getTabAt(0).select();
 
 
         course_title.setText(course_name.replace("}",""));
@@ -78,11 +80,12 @@ public class CoursesLecturers extends AppCompatActivity {
                 String mTitle = con_title_input.getText().toString().trim();
                 String mDesc = con_description_input.getText().toString().trim();
                 String mCourseId = con_course_id.getText().toString().trim();
+                String mStudentId = student_unique_id;
 
                 if(!mTitle.isEmpty() || !mDesc.isEmpty())
                 {
-                    //Toast.makeText(CoursesLecturers.this, mCourseId, Toast.LENGTH_SHORT).show();
-                    Consulting(mCourseId, mTitle, mDesc);
+                    //Toast.makeText(CoursesLecturers.this, mStudentId, Toast.LENGTH_SHORT).show();
+                    Consulting(mCourseId, mStudentId, mTitle, mDesc);
                 } else {
                     con_title_input.setError("Title field is required!");
                     con_description_input.setError("Description field is required!");
@@ -96,11 +99,13 @@ public class CoursesLecturers extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 1) {
                     myIntent = new Intent(CoursesLecturers.this, History.class);
-                    myIntent.putExtra("EXTRA","1");
+                    myIntent.putExtra("HISTORY_COURSE_ID", course_id);
+                    myIntent.putExtra("HISTORY_STUDENT_ID", student_unique_id);
                     startActivity(myIntent);
+                    tabs.getTabAt(0).select();
 
                 } else {
-                    Toast.makeText(CoursesLecturers.this, "Tab nr 1", Toast.LENGTH_SHORT).show();
+                    tabs.getTabAt(0).select();
                 }
             }
 
@@ -118,7 +123,7 @@ public class CoursesLecturers extends AppCompatActivity {
 
     }
 
-    private void Consulting(final String course_id, final String consulting_title, final String consulting_desc) {
+    private void Consulting(final String course_id, final String student_unique_id, final String consulting_title, final String consulting_desc) {
         loading.setVisibility(View.VISIBLE);
         btn_submit.setVisibility(View.GONE);
 
@@ -162,6 +167,7 @@ public class CoursesLecturers extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("cou_id", course_id);
+                params.put("stu_id", student_unique_id);
                 params.put("con_title", consulting_title);
                 params.put("con_desc", consulting_desc);
                 return params;

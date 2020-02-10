@@ -6,27 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".History">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs"
+    <TextView
+        android:id="@+id/history_no_records"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabIndicator="@color/colorPrimary"
-        app:tabBackground="@drawable/tab_color_selector">
-
-        <com.google.android.material.tabs.TabItem
-            android:icon="@drawable/ic_consultation"
-            android:text="Consultation"
-            />
-        <com.google.android.material.tabs.TabItem
-            android:icon="@drawable/ic_history"
-            android:text="History" />
-
-    </com.google.android.material.tabs.TabLayout>
+        android:text="No records found. Please go back and add a consultation!"
+        android:textSize="18dp"
+        android:textColor="@color/colorAccent"
+        android:padding="10dp"
+        android:gravity="left"
+        android:visibility="gone"
+        />
 
     <LinearLayout
+        android:id="@+id/history_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp">
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/course_unique_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/student_unique_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
         <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"

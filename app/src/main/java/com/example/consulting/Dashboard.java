@@ -50,14 +50,9 @@ public class Dashboard extends AppCompatActivity {
 
         session = new SessionManager(getApplicationContext());
 
-        // get user data from session
-        //HashMap<String, String> user = session.getUserDetails();
+        HashMap<String, String> user = session.getUserDetails();
 
-        // name
-        //String name = user.get(SessionManager.KEY_NAME);
-
-        // email
-        //String email = user.get(SessionManager.KEY_EMAIL);
+        final String studentUniqueDB = user.get(SessionManager.KEY_STUDENT_UNIQUE_DB_ID);
 
         myIntent = new Intent(this, CoursesLecturers.class);
 
@@ -102,6 +97,7 @@ public class Dashboard extends AppCompatActivity {
                 //Toast.makeText(Dashboard.this, lv.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
 
                 myIntent.putExtra("COURSE_ID", course_id);
+                myIntent.putExtra("STUDENT_ID", studentUniqueDB);
                 myIntent.putExtra("COURSE_NAME", course_name);
                 myIntent.putExtra("LECTURER_ID", lecturer_id);
                 myIntent.putExtra("LECTURER_NAME", lecturer);

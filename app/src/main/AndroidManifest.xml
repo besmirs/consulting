@@ -15,7 +15,8 @@
         <activity android:name=".Professors" />
         <activity android:name=".CoursesLecturers" />
         <activity android:name=".Dashboard" />
-        <activity android:name=".History" />
+        <activity android:name=".History"
+            android:parentActivityName=".CoursesLecturers" android:theme="@style/Theme.AppCompat.Light" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
