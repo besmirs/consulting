@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Dashboard">
 
+
     <LinearLayout
         android:id="@+id/topLinearLayout"
         android:layout_width="match_parent"
@@ -74,7 +75,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/cardView"
-        android:layout_marginBottom="58dp"
         android:padding="10dp"
         android:orientation="vertical">
 
@@ -103,19 +103,5 @@
 
     </LinearLayout>
 
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="2dp"
-        app:itemBackground="@color/startblue"
-        app:itemIconTint="@drawable/selector"
-        app:itemTextColor="@drawable/selector"
-        app:menu="@menu/menu_navigation">
-
-
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </RelativeLayout>

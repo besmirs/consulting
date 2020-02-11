@@ -40,6 +40,7 @@ public class Professors extends AppCompatActivity {
 
         bottomNavigationView.setSelectedItemId(R.id.home);
 
+        /*
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -53,12 +54,17 @@ public class Professors extends AppCompatActivity {
                     case R.id.home:
                         Toast.makeText(Professors.this, "You are on Professors", Toast.LENGTH_SHORT).show();
 
+                    case R.id.about:
+                        Toast.makeText(Professors.this, "You are on Professors", Toast.LENGTH_SHORT).show();
+
                     default:
                         return false;
                 }
 
             }
         });
+
+         */
 
     }
 

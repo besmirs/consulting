@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         session = new SessionManager(getApplicationContext());
 
+
         studentId = findViewById(R.id.studentId);
         studentPassword = findViewById(R.id.studentPassword);
         btn_login = findViewById(R.id.btn_login);
@@ -64,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
 
                 if(!mStudentId.isEmpty() || !mStudentPassword.isEmpty()){
                     Login(mStudentId, mStudentPassword);
+
+                    studentId.setText("");
+                    studentPassword.setText("");
                 } else {
                     layoutStudentId.setError("Please provide student ID");
                     layoutStudentPassword.setError("Please provide password");
@@ -103,6 +107,8 @@ public class MainActivity extends AppCompatActivity {
                                     startActivity(intent);
 
                                     loading.setVisibility(View.GONE);
+                                    btn_login.setVisibility(View.VISIBLE);
+
                                 }
                             }
 

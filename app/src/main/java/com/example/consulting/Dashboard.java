@@ -1,14 +1,20 @@
 package com.example.consulting;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -29,11 +35,12 @@ import java.util.HashMap;
 
 public class Dashboard extends AppCompatActivity {
 
-    private BottomNavigationView bottomNavigationView;
     private TextView dash_studentId, dash_studentFullName;
     private String TAG = Dashboard.class.getSimpleName();
     private ProgressDialog pDialog;
     private ListView lv;
+
+    private long backPressedTime;
 
     SessionManager session;
 
@@ -48,6 +55,7 @@ public class Dashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+
         session = new SessionManager(getApplicationContext());
 
         HashMap<String, String> user = session.getUserDetails();
@@ -57,7 +65,6 @@ public class Dashboard extends AppCompatActivity {
         myIntent = new Intent(this, CoursesLecturers.class);
 
 
-        bottomNavigationView = findViewById(R.id.bottomNavigation);
         dash_studentId = findViewById(R.id.dash_studentId);
         dash_studentFullName = findViewById(R.id.dash_studentFullName);
 
@@ -70,6 +77,7 @@ public class Dashboard extends AppCompatActivity {
         dash_studentFullName.setText(sFullName);
 
         contactList = new ArrayList<>();
+
 
         lv = findViewById(R.id.listView);
 
@@ -110,28 +118,36 @@ public class Dashboard extends AppCompatActivity {
         });
 
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        // Define ActionBar object
+        ActionBar actionBar;
+        actionBar = getSupportActionBar();
+        actionBar.setTitle("Dashboard");
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#09C6DF"));
+        actionBar.setBackgroundDrawable(colorDrawable);
 
-                switch (menuItem.getItemId()) {
+    }
 
-                    case R.id.dashboard:
-                        Toast.makeText(Dashboard.this, "You are on Dash", Toast.LENGTH_SHORT).show();
-                        return true;
-
-                    case R.id.home:
-                        startActivity(new Intent(getApplicationContext(), Professors.class));
-                        return true;
-
-                    default:
-                        return false;
-                }
-
-            }
-        });
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_navigation, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
 
+
+
+    @Override
+    public void onBackPressed(){
+
+        if(backPressedTime + 2000 > System.currentTimeMillis()) {
+            super.onBackPressed();
+            return;
+        } else {
+            Toast.makeText(getBaseContext(), "Click back again to exit!", Toast.LENGTH_SHORT).show();
+        }
+
+        backPressedTime = System.currentTimeMillis();
     }
 
 
