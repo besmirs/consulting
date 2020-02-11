@@ -30,6 +30,9 @@ public class SessionManager {
     public static final String KEY_STUDENT_ID = "studentId";
     public static final String KEY_STUDENT_UNIQUE_DB_ID = "studentUniqueDbId";
 
+    public static final String PROFESSOR_EMAIL = "pro_email";
+    public static final String PROFESSOR_DB_ID = "pro_id";
+
     // Email address (make variable public to access from outside)
     //public static final String KEY_EMAIL = "email";
 
@@ -52,6 +55,20 @@ public class SessionManager {
 
         // Storing studentUniqueDbId
         editor.putString(KEY_STUDENT_UNIQUE_DB_ID, studentUniqueDbId);
+
+        // commit changes
+        editor.commit();
+    }
+
+    public void createLoginSessionProfessor(String professorDbId, String professor_email){
+        // Storing login value as TRUE
+        editor.putBoolean(IS_LOGIN, true);
+
+        // Storing professor email
+        editor.putString(PROFESSOR_EMAIL, professor_email);
+
+        // Storing studentUniqueDbId
+        editor.putString(PROFESSOR_DB_ID, professorDbId);
 
         // commit changes
         editor.commit();
@@ -94,6 +111,22 @@ public class SessionManager {
 
         // return user
         return user;
+    }
+
+
+    /**
+     * Get stored session data
+     * */
+    public HashMap<String, String> getProfessorDetails(){
+        HashMap<String, String> professor = new HashMap<String, String>();
+        //studentId
+        professor.put(PROFESSOR_EMAIL, pref.getString(PROFESSOR_EMAIL, null));
+
+        //studentUniqueDbId
+        professor.put(PROFESSOR_DB_ID, pref.getString(PROFESSOR_DB_ID, null));
+
+        // return user
+        return professor;
     }
 
     /**

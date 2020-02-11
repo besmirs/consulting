@@ -12,14 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".Professor_dashboard"></activity>
+        <activity android:name=".ProfessorLogin" />
         <activity
             android:name=".Consultation"
             android:parentActivityName=".Dashboard"
-            android:theme="@style/Theme.AppCompat.Light"/>
-
+            android:theme="@style/Theme.AppCompat.Light" />
         <activity android:name=".Professors" />
         <activity android:name=".CoursesLecturers" />
-        <activity android:name=".Dashboard" android:theme="@style/Theme.AppCompat.Light" />
+        <activity
+            android:name=".Dashboard"
+            android:theme="@style/Theme.AppCompat.Light" />
         <activity
             android:name=".History"
             android:parentActivityName=".CoursesLecturers"

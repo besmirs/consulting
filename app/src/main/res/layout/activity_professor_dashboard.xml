@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Professor_dashboard"
+    android:background="#ffffff">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:src="@drawable/logo"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/prof_info"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/startblue"
+        android:layout_below="@id/logo"
+        android:padding="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/professor_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Azir Aliu"
+            android:textColor="@color/darkText"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvProfessorId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/professor_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="azir.aliu@seeu.edu.mk"
+            android:textColor="@color/darkText"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:gravity="end"
+            />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/prof_info">
+
+        <TextView
+            android:id="@+id/available"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="List of registered courses"
+            android:textColor="@color/startblue"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"/>
+
+        <ListView
+            android:id="@+id/profListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/available"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

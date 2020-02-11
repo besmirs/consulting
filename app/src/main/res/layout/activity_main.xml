@@ -23,7 +23,6 @@
 
         <EditText
             android:id="@+id/studentId"
-            android:hint="Student ID"
             android:maxLines="1"
             android:inputType="text"
             android:layout_width="match_parent"
@@ -71,13 +70,15 @@
         android:layout_marginTop="35dp"/>
 
     <TextView
-        android:id="@+id/contactSupport"
+        android:id="@+id/professor_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Contact Support"
+        android:text="Professor Login"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="40dp"
         android:textAlignment="center"
+        android:clickable="true"
+        android:textStyle="bold"
         />
 
 </RelativeLayout>
