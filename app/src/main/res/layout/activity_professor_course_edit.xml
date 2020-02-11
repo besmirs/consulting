@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfessorCourseEdit">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:layout_below="@+id/tabs">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:gravity="left"
+            android:text="Consultation approval"
+            android:textColor="@color/darkText" />
+
+
+        <TextView
+            android:id="@+id/tvApprove"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textColor="@color/darkText"
+            android:text="Approve" />
+
+
+        <CheckBox
+            android:id="@+id/cbApprove"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:inputType="none" />
+
+        <EditText
+            android:id="@+id/con_course_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:inputType="number"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tvClassroom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textColor="@color/darkText"
+            android:text="Classroom"
+            android:visibility="gone" />
+
+
+        <EditText
+            android:id="@+id/etClassroom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:inputType="text"
+            android:maxLines="1"
+            android:hint="Ex: 816.02"
+            android:visibility="gone"/>
+
+
+        <TextView
+            android:id="@+id/tvConsultationDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textColor="@color/darkText"
+            android:text="Date of consultation"
+            android:visibility="gone"/>
+
+
+            <DatePicker
+                android:id="@+id/calCalendar"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:calendarViewShown="false"
+                android:datePickerMode="spinner"
+                android:visibility="gone"
+                />
+
+        <TextView
+            android:id="@+id/tvConsultationTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textColor="@color/darkText"
+            android:text="Time"
+            android:visibility="gone"/>
+
+
+        <TimePicker
+            android:id="@+id/tpTime"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:timePickerMode="spinner"
+            android:visibility="gone"
+            />
+
+
+    </LinearLayout>
+
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_above="@+id/btn_submit"
+        android:visibility="gone"
+        />
+
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="20dp"
+        android:text="Submit"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/gradientbackground" />
+
+</RelativeLayout>

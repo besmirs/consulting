@@ -56,8 +56,7 @@ public class ProfessorLogin extends AppCompatActivity {
         layoutStudentPassword = findViewById(R.id.layoutStudentPassword);
 
         studentId.setHint("Professor email address");
-        studentId.setInputType(InputType.TYPE_CLASS_TEXT |
-                InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        //studentId.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         professor_login.setText("Student Login");
 
         professor_login.setOnClickListener(new View.OnClickListener() {

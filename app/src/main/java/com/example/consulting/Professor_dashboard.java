@@ -3,9 +3,12 @@ package com.example.consulting;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -16,6 +19,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -27,12 +37,16 @@ public class Professor_dashboard extends AppCompatActivity {
     private ProgressDialog pDialog;
     private ListView lv;
 
+    Intent myIntent;
+
     ArrayList<HashMap<String, String>> coursesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_professor_dashboard);
+        myIntent = new Intent(this, ProfessorCourse.class);
+
 
         tvProfessorId = findViewById(R.id.tvProfessorId);
         professor_name = findViewById(R.id.professor_name);
@@ -55,7 +69,39 @@ public class Professor_dashboard extends AppCompatActivity {
         lv = findViewById(R.id.profListView);
 
         new GetCourses().execute();
+
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                String[] itemResponseJson =  lv.getItemAtPosition(position).toString().split(",");
+
+                String[] course = itemResponseJson[0].split("=");
+                String course_id = course[1];
+
+                String[] professors = itemResponseJson[1].split("=");
+                String professor_name = professors[1];
+
+                String[] courseName = itemResponseJson[5].split("=");
+                String course_name = courseName[1];
+                String cname = course_name.replace("}", "");
+
+                //Toast.makeText(Professor_dashboard.this, lv.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+
+
+                myIntent.putExtra("COURSE_ID", course_id);
+                myIntent.putExtra("COURSE_NAME", cname);
+                myIntent.putExtra("PROFESSOR_NAME", professor_name);
+
+
+                startActivity(myIntent);
+            }
+        });
+
     }
+
+
 
 
     private class GetCourses extends AsyncTask<Void, Void, Void> {
