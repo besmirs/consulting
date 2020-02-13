@@ -22,6 +22,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="5dp"
             android:gravity="left"
+            android:visibility="gone"
             android:text="Consultation approval"
             android:textColor="@color/darkText" />
 
@@ -70,7 +71,7 @@
             android:layout_marginRight="5dp"
             android:inputType="text"
             android:maxLines="1"
-            android:hint="Ex: 816.02"
+            android:hint=""
             android:visibility="gone"/>
 
 
@@ -136,6 +137,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="5dp"
         android:layout_gravity="bottom"
+        android:visibility="gone"
         android:background="@drawable/gradientbackground" />
 
 </RelativeLayout>

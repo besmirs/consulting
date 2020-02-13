@@ -2,6 +2,7 @@ package com.example.consulting;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -36,12 +37,24 @@ public class ProfessorCourseEdit extends AppCompatActivity {
     TimePicker tpTime;
     Button btn_submit;
 
-    private static String URL_EDIT_CONSULTING = "http://trepcacorporation.com/consulting/consulting.php";
+    Intent myIntent;
+
+    private static String URL_EDIT_CONSULTING = "http://trepcacorporation.com/consulting/consulting_edit.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_professor_course_edit);
+
+        final Intent intent = getIntent();
+        final String cid = intent.getStringExtra("COURSE_ID");
+        final String consulation_id = intent.getStringExtra("CONSULTATION_ID");
+        String cname = intent.getStringExtra("COURSE_NAME");
+
+        androidx.appcompat.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(cname);
+
+        myIntent = new Intent(this, Professor_dashboard.class);
 
         cbApprove = findViewById(R.id.cbApprove);
         tvClassroom = findViewById(R.id.tvClassroom);
@@ -63,6 +76,7 @@ public class ProfessorCourseEdit extends AppCompatActivity {
                     etClassroom.setVisibility(View.VISIBLE);
                     calCalendar.setVisibility(View.VISIBLE);
                     tpTime.setVisibility(View.VISIBLE);
+                    btn_submit.setVisibility(View.VISIBLE);
                 } else {
                     tvClassroom.setVisibility(View.GONE);
                     tvConsultationDate.setVisibility(View.GONE);
@@ -70,6 +84,7 @@ public class ProfessorCourseEdit extends AppCompatActivity {
                     etClassroom.setVisibility(View.GONE);
                     calCalendar.setVisibility(View.GONE);
                     tpTime.setVisibility(View.GONE);
+                    btn_submit.setVisibility(View.GONE);
                 }
             }
         });
@@ -85,16 +100,27 @@ public class ProfessorCourseEdit extends AppCompatActivity {
                     approve = "0";
                 }
 
+                String mClassRoom = etClassroom.getText().toString().trim();
+                String currentClassRoom;
+
+                if(!mClassRoom.isEmpty()) {
+                    currentClassRoom = mClassRoom;
+                } else
+                {
+                    currentClassRoom = "";
+                }
+
                 String selecteDate = calCalendar.getYear() + "-" + (calCalendar.getMonth() + 1) + "-" + calCalendar.getDayOfMonth();
                 String selectedTime = String.format("%02d:%02d:00", tpTime.getCurrentHour(), tpTime.getCurrentMinute(), "00");
 
-                Toast.makeText(ProfessorCourseEdit.this, selectedTime, Toast.LENGTH_SHORT).show();
+                EditConsulting(consulation_id, approve, currentClassRoom, selecteDate, selectedTime);
             }
         });
 
     }
 
-    private void EditConsulting(final String course_id, final String con_approve, final String con_classroom, final String con_date, final String con_time) {
+
+    private void EditConsulting(final String consultationId, final String con_approve, final String con_classroom, final String con_date, final String con_time) {
         //loading.setVisibility(View.VISIBLE);
         //btn_submit.setVisibility(View.GONE);
 
@@ -107,11 +133,9 @@ public class ProfessorCourseEdit extends AppCompatActivity {
                             String success = jsonObject.getString("success");
 
                             if(success.equals("1")){
-
-
-                                //loading.setVisibility(View.GONE);
-                                //btn_submit.setVisibility(View.VISIBLE);
-                                Toast.makeText(ProfessorCourseEdit.this, "New consultation added!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ProfessorCourseEdit.this, "Consultation is approved!", Toast.LENGTH_SHORT).show();
+                                //finish();
+                                startActivity(myIntent);
                             }
 
                         } catch (JSONException e) {
@@ -135,10 +159,11 @@ public class ProfessorCourseEdit extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                //params.put("cou_id", course_id);
-                //params.put("stu_id", student_unique_id);
-                //params.put("con_title", consulting_title);
-                //params.put("con_desc", consulting_desc);
+                params.put("con_id", consultationId);
+                params.put("con_approve", con_approve);
+                params.put("con_classroom", con_classroom);
+                params.put("con_date", con_date);
+                params.put("con_time", con_time);
                 return params;
             }
         };

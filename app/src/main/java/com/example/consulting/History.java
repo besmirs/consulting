@@ -3,6 +3,7 @@ package com.example.consulting;
 import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +34,8 @@ import java.util.HashMap;
 public class History extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
-    private TextView course_hidden_id, student_hidden_id, history_no_records;
+    private TextView course_hidden_id, student_hidden_id, history_no_records, cstatus, classroom,
+            c_date, consultationDateSet;
     private String TAG = History.class.getSimpleName();
     private ProgressDialog pDialog;
     private ListView lv;
@@ -73,6 +76,10 @@ public class History extends AppCompatActivity {
         student_hidden_id = findViewById(R.id.student_unique_id);
         history_no_records = findViewById(R.id.history_no_records);
         history_listview = findViewById(R.id.history_listview);
+        cstatus = findViewById(R.id.cstatus);
+        classroom = findViewById(R.id.classroom);
+        c_date = findViewById(R.id.c_date);
+        consultationDateSet = findViewById(R.id.consultationDateSet);
 
 
         course_hidden_id.setText(course_id);
@@ -148,18 +155,27 @@ public class History extends AppCompatActivity {
                         //String id = c.getString("con_id");
                         String name = c.getString("con_title");
                         String code = c.getString("con_desc");
+                        String approve = c.getString("con_approve");
+                        String classroom = c.getString("con_classroom");
+                        String con_dTime = c.getString("con_dTime");
+                        String con_date_added = c.getString("con_date_added");
 
                         // tmp hash map for single contact
-                        HashMap<String, String> contact = new HashMap<>();
+                        HashMap<String, String> consult = new HashMap<>();
 
                         // adding each child node to HashMap key => value
                         //contact.put("con_id", id);
-                        contact.put("con_title", name);
-                        contact.put("con_desc", code);
+                        consult.put("con_title", name);
+                        consult.put("con_desc", code);
+                        consult.put("con_approve", approve);
+                        consult.put("con_classroom", classroom);
+                        consult.put("con_dTime", con_dTime);
+                        consult.put("con_date_added", con_date_added);
+
 
 
                         // adding contact to contact list
-                        contactList.add(contact);
+                        contactList.add(consult);
                     }
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
@@ -203,8 +219,8 @@ public class History extends AppCompatActivity {
             ListAdapter adapter = new SimpleAdapter(
                     History.this, contactList,
                     R.layout.list_consultation,
-                    new String[]{"con_title", "con_desc"},
-                    new int[]{R.id.name, R.id.mobile});
+                    new String[]{"con_title", "con_desc", "con_approve", "con_classroom", "con_dTime", "con_date_added"},
+                    new int[]{R.id.name, R.id.mobile, R.id.cstatus, R.id.classroom, R.id.consultationDateSet, R.id.c_date});
 
             if(adapter.getCount() == 0)
             {

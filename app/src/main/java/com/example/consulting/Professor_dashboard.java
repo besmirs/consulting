@@ -36,7 +36,7 @@ public class Professor_dashboard extends AppCompatActivity {
     private String TAG = Dashboard.class.getSimpleName();
     private ProgressDialog pDialog;
     private ListView lv;
-
+    private long backPressedTime;
     Intent myIntent;
 
     ArrayList<HashMap<String, String>> coursesList;
@@ -101,7 +101,18 @@ public class Professor_dashboard extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed(){
 
+        if(backPressedTime + 2000 > System.currentTimeMillis()) {
+            super.onBackPressed();
+            return;
+        } else {
+            Toast.makeText(getBaseContext(), "Click back again to exit!", Toast.LENGTH_SHORT).show();
+        }
+
+        backPressedTime = System.currentTimeMillis();
+    }
 
 
     private class GetCourses extends AsyncTask<Void, Void, Void> {
@@ -111,7 +122,7 @@ public class Professor_dashboard extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            // Showing progress dialog
+
             pDialog = new ProgressDialog(Professor_dashboard.this);
             pDialog.setMessage("Please wait...");
             pDialog.setCancelable(false);
@@ -123,10 +134,7 @@ public class Professor_dashboard extends AppCompatActivity {
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
 
-            // Making a request to url and getting response
             String jsonStr = sh.makeServiceCall(url);
-
-            Log.e(TAG, "Response from url: " + jsonStr);
 
             if (jsonStr != null) {
                 try {
@@ -150,10 +158,8 @@ public class Professor_dashboard extends AppCompatActivity {
                         String lecturer = c.getString("cou_lecturer");
 
 
-                        // tmp hash map for single contact
                         HashMap<String, String> course = new HashMap<>();
 
-                        // adding each child node to HashMap key => value
                         course.put("cou_id", id);
                         course.put("cou_name", name);
                         course.put("cou_iname", iname);
@@ -161,11 +167,9 @@ public class Professor_dashboard extends AppCompatActivity {
                         course.put("cou_credits", credits);
                         course.put("cou_lecturer", lecturer);
 
-                        // adding contact to contact list
                         coursesList.add(course);
                     }
                 } catch (final JSONException e) {
-                    Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -178,12 +182,11 @@ public class Professor_dashboard extends AppCompatActivity {
 
                 }
             } else {
-                Log.e(TAG, "Couldn't get json from server.");
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         Toast.makeText(getApplicationContext(),
-                                "Couldn't get json from server. Check LogCat for possible errors!",
+                                "Couldn't get json from server",
                                 Toast.LENGTH_LONG)
                                 .show();
                     }
@@ -200,9 +203,8 @@ public class Professor_dashboard extends AppCompatActivity {
             // Dismiss the progress dialog
             if (pDialog.isShowing())
                 pDialog.dismiss();
-            /**
-             * Updating parsed JSON data into ListView
-             * */
+
+
             ListAdapter adapter = new SimpleAdapter(
                     Professor_dashboard.this, coursesList,
                     R.layout.list_courses,

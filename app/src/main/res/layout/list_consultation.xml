@@ -54,7 +54,7 @@
         android:layout_below="@id/mobile">
 
         <TextView
-            android:id="@+id/titlename"
+            android:id="@+id/cstatus"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
@@ -62,7 +62,7 @@
             android:text="Status: Pending" />
 
         <TextView
-            android:id="@+id/asdf"
+            android:id="@+id/classroom"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
@@ -71,6 +71,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/consultationDateSet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/con_status"

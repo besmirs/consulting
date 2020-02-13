@@ -8,7 +8,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -29,10 +32,12 @@ public class ProfessorCourse extends AppCompatActivity {
     private ProgressDialog pDialog;
     private ListView lv;
 
+
+
     Intent myIntent;
 
     //private static
-    ArrayList<HashMap<String, String>> courseConsultation;
+    ArrayList<HashMap<String, String>> courseConsultation = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +51,10 @@ public class ProfessorCourse extends AppCompatActivity {
         noRecords = findViewById(R.id.no_records);
 
         myIntent = new Intent(this, ProfessorCourseEdit.class);
-        courseConsultation = new ArrayList<>();
 
         Intent intent = getIntent();
-        String course_id = intent.getStringExtra("COURSE_ID");
-        String course_name = intent.getStringExtra("COURSE_NAME");
+        final String course_id = intent.getStringExtra("COURSE_ID");
+        final String course_name = intent.getStringExtra("COURSE_NAME");
         String professor_name = intent.getStringExtra("PROFESSOR_NAME");
 
         available.setText("Consultation for " + course_name);
@@ -63,18 +67,20 @@ public class ProfessorCourse extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
+                String[] itemResponseJson =  lv.getItemAtPosition(position).toString().split(",");
 
+                String[] consultations = itemResponseJson[0].split("=");
+                String consultation_id = consultations[1];
 
-
-                //Toast.makeText(ProfessorCourse.this, lv.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
-
-
-
+                myIntent.putExtra("COURSE_ID", course_id);
+                myIntent.putExtra("CONSULTATION_ID", consultation_id);
+                myIntent.putExtra("COURSE_NAME", course_name);
                 startActivity(myIntent);
-
             }
         });
     }
+
+
 
     private class GetCourseConsultation extends AsyncTask<Void, Void, Void> {
 
@@ -172,26 +178,24 @@ public class ProfessorCourse extends AppCompatActivity {
                 pDialog.dismiss();
 
 
-            ListAdapter adapter = new SimpleAdapter(
+            final SimpleAdapter adapter = new SimpleAdapter(
                     ProfessorCourse.this, courseConsultation,
                     R.layout.list_consultation,
                     new String[]{"con_title", "con_desc"},
                     new int[]{R.id.name, R.id.mobile});
 
-
-            if(adapter.getCount() == 0)
-            {
+            if (adapter.getCount() == 0) {
                 noRecords.setVisibility(View.VISIBLE);
             }
 
-
+            adapter.notifyDataSetChanged();
 
             lv.setAdapter(adapter);
 
-
-
-
         }
+
+
+
 
     }
 }
