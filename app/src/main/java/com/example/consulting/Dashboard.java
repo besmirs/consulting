@@ -81,7 +81,7 @@ public class Dashboard extends AppCompatActivity {
 
         lv = findViewById(R.id.listView);
 
-        new GetContacts().execute();
+        new GetCourses().execute();
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
@@ -151,7 +151,7 @@ public class Dashboard extends AppCompatActivity {
     }
 
 
-    private class GetContacts extends AsyncTask<Void, Void, Void> {
+    private class GetCourses extends AsyncTask<Void, Void, Void> {
 
         String url = "http://trepcacorporation.com/consulting/courses.php?cStudent=" + dash_studentId.getText().toString().trim();
 
@@ -172,8 +172,6 @@ public class Dashboard extends AppCompatActivity {
 
             // Making a request to url and getting response
             String jsonStr = sh.makeServiceCall(url);
-
-            Log.e(TAG, "Response from url: " + jsonStr);
 
             if (jsonStr != null) {
                 try {
@@ -196,13 +194,6 @@ public class Dashboard extends AppCompatActivity {
                         String lecturer = c.getString("cou_lecturer");
                         //String gender = c.getString("gender");
 
-                        // Phone node is JSON Object
-                        //JSONObject phone = c.getJSONObject("phone");
-                        // String mobile = phone.getString("mobile");
-                        //String home = phone.getString("home");
-                        //String office = phone.getString("office");
-
-                        // tmp hash map for single contact
                         HashMap<String, String> contact = new HashMap<>();
 
                         // adding each child node to HashMap key => value
@@ -216,7 +207,6 @@ public class Dashboard extends AppCompatActivity {
                         contactList.add(contact);
                     }
                 } catch (final JSONException e) {
-                    Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -229,7 +219,6 @@ public class Dashboard extends AppCompatActivity {
 
                 }
             } else {
-                Log.e(TAG, "Couldn't get json from server.");
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

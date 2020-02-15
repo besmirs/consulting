@@ -85,7 +85,7 @@ public class History extends AppCompatActivity {
         course_hidden_id.setText(course_id);
         student_hidden_id.setText(student_id);
 
-        new GetContacts().execute();
+        new GetConsultationHistory().execute();
 
 
 
@@ -111,7 +111,7 @@ public class History extends AppCompatActivity {
     }
 
 
-    private class GetContacts extends AsyncTask<Void, Void, Void> {
+    private class GetConsultationHistory extends AsyncTask<Void, Void, Void> {
 
         String url = "http://trepcacorporation.com/consulting/history.php?course_id=" +
                 course_hidden_id.getText().toString().trim() + "&student_unique_id=" +
